@@ -35,15 +35,23 @@ simulator {
 }
 
 config_pri_assets {
-    OTHER_FILES += $$quote($$BASEDIR/assets/LCBOInfo.qml)
+    OTHER_FILES += \
+        $$quote($$BASEDIR/assets/FavouriteProducts.qml) \
+        $$quote($$BASEDIR/assets/FavouriteStores.qml) \
+        $$quote($$BASEDIR/assets/LCBOInfo.qml) \
+        $$quote($$BASEDIR/assets/ProductInfo.qml) \
+        $$quote($$BASEDIR/assets/StoreInfo.qml)
 }
 
 config_pri_source_group1 {
     SOURCES += \
         $$quote($$BASEDIR/src/LBCOInfo.cpp) \
+        $$quote($$BASEDIR/src/ResultsDataModel.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
-    HEADERS += $$quote($$BASEDIR/src/LCBOInfo.hpp)
+    HEADERS += \
+        $$quote($$BASEDIR/src/LCBOInfo.hpp) \
+        $$quote($$BASEDIR/src/ResultsDataModel.hpp)
 }
 
 CONFIG += precompile_header
