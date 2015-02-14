@@ -11,11 +11,12 @@ NavigationPane {
                 horizontalAlignment: HorizontalAlignment.Center
                 
                 onClicked: {
+                    navPane.push(searchResultsPage);
                     var query = {};
+                    query.type = "store";
                     query.lat = 43.4541;
                     query.lon = -80.5554;
-                    app.storeSearch(query);
-                    navPane.push(searchResultsPage);
+                    app.query(query);
                 }
             }
         }

@@ -36,10 +36,12 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
+        $$quote($$BASEDIR/assets/DetailsPage.qml) \
         $$quote($$BASEDIR/assets/FavouriteProducts.qml) \
         $$quote($$BASEDIR/assets/FavouriteStores.qml) \
         $$quote($$BASEDIR/assets/LCBOInfo.qml) \
         $$quote($$BASEDIR/assets/ProductInfo.qml) \
+        $$quote($$BASEDIR/assets/SearchResults.qml) \
         $$quote($$BASEDIR/assets/StoreInfo.qml)
 }
 

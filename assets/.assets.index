@@ -1,4 +1,9 @@
 1
-2
+7
+DetailsPage.qml
+FavouriteProducts.qml
+FavouriteStores.qml
 LCBOInfo.qml
+ProductInfo.qml
+SearchResults.qml
 StoreInfo.qml

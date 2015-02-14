@@ -11,6 +11,11 @@ void ResultsDataModel::clear() {
     emit itemsChanged(DataModelChangeType::AddRemove);
 }
 
+void ResultsDataModel::addResult(QVariantMap result) {
+    _internalDB.append(result);
+    emit itemsChanged(bb::cascades::DataModelChangeType::AddRemove);
+}
+
 QVariantList ResultsDataModel::getInternalDB() {
     return _internalDB;
 }
@@ -37,15 +42,5 @@ QVariant ResultsDataModel::data(const QVariantList &indexPath) {
 }
 
 QString ResultsDataModel::itemType(const QVariantList &indexPath) {
-    QString retVal;
-    QVariantMap d = data(indexPath).toMap();
-    if (d.value("type").toString() == "store") {
-        retVal =  "store";
-    } else if (d.value("type").toString() == "product") {
-        retVal = "product";
-    } else {
-        qDebug() << Q_FUNC_INFO << "Unknown type";
-        qDebug() << Q_FUNC_INFO << d << indexPath;
-    }
-    return retVal;
+    return "item";
 }

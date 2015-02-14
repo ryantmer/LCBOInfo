@@ -4,30 +4,36 @@
 #include <QObject>
 #include <bb/cascades/QListDataModel>
 #include <bb/cascades/NavigationPane>
+#include <bb/system/SystemUiPosition>
 #include "ResultsDataModel.hpp"
+
+using namespace bb::cascades;
+using namespace bb::system;
 
 class LCBOInfo : public QObject {
     Q_OBJECT
 public:
+    enum RequestType {
+        Undefined,
+        Store,
+        Product,
+        Inventory
+    };
     LCBOInfo();
     virtual ~LCBOInfo();
 
-//    Q_INVOKABLE void search(QVariantMap query);
-//    Q_INVOKABLE void addFavourite(QVariantMap fav);
-//    Q_INVOKABLE void removeFavourite(QVariantMap fav);
-//    Q_INVOKABLE QString getVersionNumber();
-//    void toast(QString message);
+    Q_INVOKABLE void query(QVariantMap query);
+    Q_INVOKABLE QString getVersionNumber();
+    void toast(QString message, SystemUiPosition::Type pos=SystemUiPosition::BottomCenter);
 
 private:
     ResultsDataModel *_results;
-    bb::cascades::QMapListDataModel *_favouriteStores;
-    bb::cascades::QMapListDataModel *_favouriteProducts;
     bb::cascades::NavigationPane *_root;
     QNetworkConfigurationManager *_netConfigMan;
     QNetworkAccessManager *_netAccessMan;
 
 private slots:
-//    void onFinished(QNetworkReply *reply);
+    void onFinished(QNetworkReply *reply);
 };
 
 #endif /* ApplicationUI_HPP_ */
