@@ -9,15 +9,21 @@ ResultsDataModel::ResultsDataModel(QObject *parent) : DataModel(parent) {
 void ResultsDataModel::clear() {
     _internalDB.clear();
     emit itemsChanged(DataModelChangeType::AddRemove);
+    emit emptyChanged(isEmpty());
 }
 
 void ResultsDataModel::addResult(QVariantMap result) {
     _internalDB.append(result);
     emit itemsChanged(bb::cascades::DataModelChangeType::AddRemove);
+    emit emptyChanged(isEmpty());
 }
 
 QVariantList ResultsDataModel::getInternalDB() {
     return _internalDB;
+}
+
+bool ResultsDataModel::isEmpty() {
+    return _internalDB.length() == 0;
 }
 
 int ResultsDataModel::childCount(const QVariantList &indexPath) {
@@ -42,5 +48,6 @@ QVariant ResultsDataModel::data(const QVariantList &indexPath) {
 }
 
 QString ResultsDataModel::itemType(const QVariantList &indexPath) {
+    Q_UNUSED(indexPath);
     return "item";
 }

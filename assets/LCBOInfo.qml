@@ -49,6 +49,27 @@ NavigationPane {
                         app.nearbyStores();
                     }
                 }
+                
+                Label {
+                    text: "Search By Keyword"
+                    horizontalAlignment: HorizontalAlignment.Left
+                }
+                TextField {
+                    id: searchField
+                    hintText: "e.g. City, Street Name, Store Postal Code"
+                    horizontalAlignment: HorizontalAlignment.Fill
+                }
+                Button {
+                    text: "Search"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    
+                    onClicked: {
+                        navPane.push(searchResultsPage);
+                        var query = {};
+                        query.q = searchField.text;
+                        app.query(query);
+                    }
+                }
             }
         }
     }

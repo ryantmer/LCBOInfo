@@ -22,26 +22,40 @@ static const uint qt_meta_data_ResultsDataModel[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
-       0,    0, // properties
+       1,   14, // methods
+       1,   19, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+      24,   18,   17,   17, 0x05,
+
+ // properties: name, type, flags
+      18,   43, 0x01495001,
+
+ // properties: notify_signal_id
+       0,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ResultsDataModel[] = {
-    "ResultsDataModel\0"
+    "ResultsDataModel\0\0empty\0emptyChanged(bool)\0"
+    "bool\0"
 };
 
 void ResultsDataModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        ResultsDataModel *_t = static_cast<ResultsDataModel *>(_o);
+        switch (_id) {
+        case 0: _t->emptyChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        default: ;
+        }
+    }
 }
 
 const QMetaObjectExtraData ResultsDataModel::staticMetaObjectExtraData = {
@@ -77,6 +91,41 @@ int ResultsDataModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMocSuperClass::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    }
+#ifndef QT_NO_PROPERTIES
+      else if (_c == QMetaObject::ReadProperty) {
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: *reinterpret_cast< bool*>(_v) = isEmpty(); break;
+        }
+        _id -= 1;
+    } else if (_c == QMetaObject::WriteProperty) {
+        _id -= 1;
+    } else if (_c == QMetaObject::ResetProperty) {
+        _id -= 1;
+    } else if (_c == QMetaObject::QueryPropertyDesignable) {
+        _id -= 1;
+    } else if (_c == QMetaObject::QueryPropertyScriptable) {
+        _id -= 1;
+    } else if (_c == QMetaObject::QueryPropertyStored) {
+        _id -= 1;
+    } else if (_c == QMetaObject::QueryPropertyEditable) {
+        _id -= 1;
+    } else if (_c == QMetaObject::QueryPropertyUser) {
+        _id -= 1;
+    }
+#endif // QT_NO_PROPERTIES
     return _id;
+}
+
+// SIGNAL 0
+void ResultsDataModel::emptyChanged(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

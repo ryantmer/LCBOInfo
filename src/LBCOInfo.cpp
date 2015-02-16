@@ -130,6 +130,7 @@ void LCBOInfo::onPositionUpdated(const QGeoPositionInfo &pos) {
     QVariantMap q;
     q.insert("lat", lat);
     q.insert("lon", lon);
+    q.insert("order", "distance_in_meters");
 
     query(q);
 }

@@ -5,6 +5,7 @@
 
 class ResultsDataModel : public bb::cascades::DataModel {
     Q_OBJECT
+    Q_PROPERTY(bool empty READ isEmpty NOTIFY emptyChanged);
 
 public:
     ResultsDataModel(QObject *parent = 0);
@@ -12,6 +13,7 @@ public:
     void clear();
     void addResult(QVariantMap result);
     QVariantList getInternalDB();
+    bool isEmpty();
 
     virtual int childCount(const QVariantList &indexPath);
     virtual bool hasChildren(const QVariantList &indexPath);
@@ -20,6 +22,9 @@ public:
 
 private:
     QVariantList _internalDB;
+
+signals:
+    void emptyChanged(bool empty);
 };
 
 #endif /* RESULTSDATAMODEL_HPP_ */
