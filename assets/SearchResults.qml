@@ -2,16 +2,15 @@ import bb.cascades 1.2
 
 Page {
     Container {
-        layout: StackLayout {
-            orientation: LayoutOrientation.TopToBottom
-        }
+        layout: DockLayout {}
         
         Container {
             id: activityContainer
             objectName: "activityContainer"
-            visible: true
+            visible: false
             
             horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
@@ -22,37 +21,48 @@ Page {
                 preferredHeight: 100
             }
             Label {
+                id: statusLabel
+                objectName: "statusLabel"
                 text: "Searching..."
                 verticalAlignment: VerticalAlignment.Center
             }
         }
         
-        ListView {
-            layout: StackListLayout {}
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
+        Container {
+            id: pageContent
+            objectName: "pageContent"
             
-            dataModel: resultsModel
+            layout: StackLayout {
+                orientation: LayoutOrientation.TopToBottom
+            }
             
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
-                    Container {
-                        id: itemContainer
-                        StandardListItem {
-                            title: ListItemData.address_line_1
-                            description: ListItemData.city
-                            status: ListItemData.distance_in_meters / 1000 + "km"
+            ListView {
+                layout: StackListLayout {}
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Fill
+                
+                dataModel: resultsModel
+                
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "item"
+                        Container {
+                            id: itemContainer
+                            StandardListItem {
+                                title: ListItemData.address_line_1
+                                description: ListItemData.city
+                                status: ListItemData.distance_in_meters / 1000 + "km"
+                            }
                         }
                     }
+                ]
+                
+                onTriggered: {
+                    var data = dataModel.data(indexPath);
+                    var page = detailsPage.createObject();
+                    page.data = data;
+                    navPane.push(page);
                 }
-            ]
-            
-            onTriggered: {
-                var data = dataModel.data(indexPath);
-                var page = detailsPage.createObject();
-                page.data = data;
-                navPane.push(page);
             }
         }
     }

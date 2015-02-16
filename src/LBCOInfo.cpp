@@ -5,6 +5,7 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/Page>
 #include <bb/cascades/Container>
+#include <bb/cascades/Label>
 #include <bb/data/JsonDataAccess>
 #include <bb/system/SystemToast>
 #include <bb/system/SystemUiPosition>
@@ -37,6 +38,12 @@ LCBOInfo::LCBOInfo() : QObject() {
     ok = connect(_netAccessMan, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(onFinished(QNetworkReply*)));
     Q_ASSERT(ok);
+    ok = connect(this, SIGNAL(startActivity(QString)),
+            this, SLOT(onStartActivity(QString)));
+    Q_ASSERT(ok);
+    ok = connect(this, SIGNAL(endActivity()),
+            this, SLOT(onEndActivity()));
+    Q_ASSERT(ok);
     Q_UNUSED(ok);
 }
 
@@ -54,17 +61,89 @@ void LCBOInfo::toast(QString message, SystemUiPosition::Type pos) {
     toast->show();
 }
 
-void LCBOInfo::query(QVariantMap query) {
-    qDebug() << Q_FUNC_INFO << "Searching for" << query;
-
-    //Make activity indicator visible
+void LCBOInfo::onStartActivity(QString message) {
+    //Show activity container, if it exists
     Page *page = _root->top();
-    Container *container = page->findChild<Container*>("activityContainer");
-    if (container) {
-        container->setVisible(true);
+    Container *activity = page->findChild<Container*>("activityContainer");
+    if (activity) {
+        activity->setVisible(true);
     } else {
         qDebug() << Q_FUNC_INFO << "No activity container on top page";
     }
+    Label *status = activity->findChild<Label*>("statusLabel");
+    if (status) {
+        status->setText(message);
+    } else {
+        qDebug() << Q_FUNC_INFO << "No status label on top page";
+    }
+
+    //Lower opacity of other content, if it exists
+    Container *content = page->findChild<Container*>("pageContent");
+    if (content) {
+        content->setOpacity(0.1);
+    } else {
+        qDebug() << Q_FUNC_INFO << "No page content container on top page";
+    }
+}
+
+void LCBOInfo::onEndActivity() {
+    //Hide activity container, if it exists
+    Page *page = _root->top();
+    Container *activity = page->findChild<Container*>("activityContainer");
+    if (activity) {
+        activity->setVisible(false);
+    } else {
+        qDebug() << Q_FUNC_INFO << "No activity container on top page";
+    }
+
+    //Set opacity of other content to 1, if it exists
+    Container *content = page->findChild<Container*>("pageContent");
+    if (content) {
+        content->setOpacity(1.0);
+    } else {
+        qDebug() << Q_FUNC_INFO << "No page content container on top page";
+    }
+}
+
+/*
+ * Location
+ */
+void LCBOInfo::nearbyStores() {
+    emit startActivity(QString("Getting location..."));
+    QGeoPositionInfoSource *src = QGeoPositionInfoSource::createDefaultSource(this);
+    src->setPreferredPositioningMethods(QGeoPositionInfoSource::AllPositioningMethods);
+
+    bool ok = connect(src, SIGNAL(positionUpdated(const QGeoPositionInfo&)),
+            this, SLOT(onPositionUpdated(const QGeoPositionInfo&)));
+    if (ok) {
+        src->requestUpdate();
+    } else {
+        qDebug() << Q_FUNC_INFO << "Couldn't get location!";
+    }
+}
+
+void LCBOInfo::onPositionUpdated(const QGeoPositionInfo &pos) {
+    double lat = pos.coordinate().latitude();
+    double lon = pos.coordinate().longitude();
+    qDebug() << Q_FUNC_INFO << "Got location:" << lat << lon;
+
+    QVariantMap q;
+    q.insert("lat", lat);
+    q.insert("lon", lon);
+
+    query(q);
+}
+/*
+ * End Location
+ */
+
+/*
+ * Search Query
+ */
+void LCBOInfo::query(QVariantMap query) {
+    emit startActivity(QString("Searching..."));
+
+    qDebug() << Q_FUNC_INFO << "Searching for" << query;
 
     QUrl url;
     url.setUrl(baseUrl + "stores");
@@ -108,12 +187,8 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
         }
     }
 
-    //Set activity indicator to be invisible
-    Page *page = _root->top();
-    Container *container = page->findChild<Container*>("activityContainer");
-    if (container) {
-        container->setVisible(false);
-    } else {
-        qDebug() << Q_FUNC_INFO << "No activity container on top page";
-    }
+    emit endActivity();
 }
+/*
+ * End Search Query
+ */
