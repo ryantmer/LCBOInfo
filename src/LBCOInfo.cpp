@@ -17,7 +17,7 @@ using namespace bb::system;
 
 QString favouritesPath = QDir::currentPath() + "/data/favourites.json";
 QString baseUrl = QString("https://lcboapi.com/");
-QString credentials = QString("Token MDo4Nzk2N2M4Mi1iMzAzLTExZTQtYWMzMi02YjZjN2E2OWU5NTY6cnphd2NKQktCdDVEWDVET2VVMFB6UkJyS2l2UjhXYXp0emN0");
+QString credentials = QString("");
 
 LCBOInfo::LCBOInfo() : QObject() {
     _netConfigMan = new QNetworkConfigurationManager(this);
