@@ -1,5 +1,7 @@
 1
-9
+11
+images/no.png
+images/yes.png
 LCBOInfo.qml
 ProductDetails.qml
 ProductFavourites.qml

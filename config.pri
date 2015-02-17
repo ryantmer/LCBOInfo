@@ -44,7 +44,9 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/StoreDetails.qml) \
         $$quote($$BASEDIR/assets/StoreFavourites.qml) \
         $$quote($$BASEDIR/assets/StoreSearch.qml) \
-        $$quote($$BASEDIR/assets/StoreSearchResults.qml)
+        $$quote($$BASEDIR/assets/StoreSearchResults.qml) \
+        $$quote($$BASEDIR/assets/images/no.png) \
+        $$quote($$BASEDIR/assets/images/yes.png)
 }
 
 config_pri_source_group1 {

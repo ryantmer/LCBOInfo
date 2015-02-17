@@ -61,10 +61,8 @@ Page {
                     
                     Label {
                         text: "Find Nearby Stores"
-                        textStyle {
-                            base: SystemDefaults.TextStyles.BigText
-                            color: Color.White
-                        }
+                        textStyle.fontSize: FontSize.XXLarge
+                        textStyle.color: Color.White 
                         horizontalAlignment: HorizontalAlignment.Center
                         verticalAlignment: VerticalAlignment.Center
                     }
@@ -84,10 +82,7 @@ Page {
                 
                 Label {
                     text: "-or-"
-                    textStyle {
-                        base: SystemDefaults.TextStyles.TitleText
-                        color: Color.Black
-                    }
+                    textStyle.fontSize: FontSize.Medium
                     bottomMargin: 50
                     horizontalAlignment: HorizontalAlignment.Center
                     multiline: true

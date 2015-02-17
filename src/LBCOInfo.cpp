@@ -184,7 +184,10 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
         foreach (QVariant a, results) {
             QVariantMap result = a.toMap();
             qDebug() << Q_FUNC_INFO << "Adding result" << result;
-            _results->addResult(result);
+            if (!result.value("is_dead").toBool()) {
+                //is_dead indicates store has closed, don't display
+                _results->addResult(result);
+            }
         }
     }
 

@@ -3,27 +3,10 @@ import bb.cascades 1.2
 Page {
     property variant data;
     
-    function title() {
-        return "Store #" + data.id + " information";
-    }
-    
     function address() {
-        var a = "";
-        var q = "";
+        var a = data.address_line_1 + ", " + data.city;
         
-        if (data.address_line_1) {
-            a += data.address_line_1;
-            q += data.address_line_1;
-        }
-        if (data.address_line_2) {
-            a += "\n" + data.address_line_2;
-            q += " " + data.address_line_2;
-        }
-        if (data.city) {
-            a += "\n" + data.city;
-            q += " " + data.city;
-        }
-        return "<html><a href='http://maps.google.com/?q=" + q + "'>" + a + "</a></html>";
+        return "<html><a href='http://maps.google.com/?q=" + a + "'>" + a + "</a></html>";
     }
     
     function hours(day) {
@@ -42,142 +25,328 @@ Page {
         var cm = (close % 60) + "0";
         var ct = close / 60 >= 12 ? "PM" : "AM"
         
-        return oh + ":" + om + ot + "-" + ch + ":" + cm + ct;
+        return oh + ":" + om + ot + " - " + ch + ":" + cm + ct;
     }
     
-    Container {
-        layout: DockLayout {}
-        background: Color.create("#BBCACB")
-        
+    ScrollView {
+        scrollViewProperties {
+            scrollMode: ScrollMode.Vertical
+        }
         Container {
+            background: Color.create("#BBCACB")
             layout: StackLayout {
                 orientation: LayoutOrientation.TopToBottom
             }
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Top
             topPadding: 20
             rightPadding: 20
             bottomPadding: 20
             leftPadding: 20
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
             
             Label {
-                text: title()
+                text: "Store #" + data.id
                 textStyle.fontSize: FontSize.XXLarge
                 horizontalAlignment: HorizontalAlignment.Center
             }
+            
+            //Contact info
+            Label {
+                text: "Location & Contact"
+                textStyle.fontSize: FontSize.XLarge
+            }
+            Label {
+                text: address()
+            }
             Container {
-                bottomMargin: 50
-                Label {
-                    text: "Address"
-                    textStyle.fontSize: FontSize.XLarge
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
                 }
-                TextArea {
-                    text: address();
-                    editable: false
+                Label {
+                    text: "Phone"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
+                    }
+                }
+                Label {
+                    text: data.telephone
                 }
             }
             Container {
-                id: hoursContainer
-                bottomMargin: 50
                 layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
+                    orientation: LayoutOrientation.LeftToRight
                 }
-                horizontalAlignment: HorizontalAlignment.Fill
-                
                 Label {
-                    text: "Hours"
-                    textStyle.fontSize: FontSize.XLarge
-                }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Monday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("monday")
-                        horizontalAlignment: HorizontalAlignment.Right
+                    text: "Fax"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
                     }
                 }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Tuesday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("tuesday")
-                        horizontalAlignment: HorizontalAlignment.Right
+                Label {
+                    text: data.fax
+                }
+            }
+            
+            //Hours
+                Label {
+                text: "Hours"
+                textStyle.fontSize: FontSize.XLarge
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Monday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
                     }
                 }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Wednesday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("wednesday")
-                        horizontalAlignment: HorizontalAlignment.Right
+                Label {
+                    text: hours("monday")
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Tuesday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
                     }
                 }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Thursday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("thursday")
-                        horizontalAlignment: HorizontalAlignment.Right
+                Label {
+                    text: hours("tuesday")
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Wednesday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
                     }
                 }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Friday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("friday")
-                        horizontalAlignment: HorizontalAlignment.Right
+                Label {
+                    text: hours("wednesday")
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Thursday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
                     }
                 }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Saturday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("saturday")
-                        horizontalAlignment: HorizontalAlignment.Right
+                Label {
+                    text: hours("thursday")
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Friday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
                     }
                 }
-                Container {
-                    layout: DockLayout {}
-                    horizontalAlignment: HorizontalAlignment.Fill
+                Label {
+                    text: hours("friday")
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Saturday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
+                    }
+                }
+                Label {
+                    text: hours("saturday")
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                Label {
+                    text: "Sunday"
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1
+                    }
+                }
+                Label {
+                    text: hours("sunday")
+                }
+            }
+            
+            //Services
+            Label {
+                text: "Services"
+                textStyle.fontSize: FontSize.XLarge
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_parking ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Parking"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_transit_access ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Transit Access"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
                     
-                    Label {
-                        text: "Sunday"
-                        horizontalAlignment: HorizontalAlignment.Left
-                    }
-                    Label {
-                        text: hours("sunday")
-                        horizontalAlignment: HorizontalAlignment.Right
-                    }
+                ImageView {
+                    imageSource: data.has_product_consultant ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Product Consultant"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                    
+                ImageView {
+                    imageSource: data.has_tasting_bar ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Tasting Bar"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_beer_cold_room ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Beer Cold Room"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_vintages_corner ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Vintages Corner"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_wheelchair_accessability ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Wheelchair Accessible"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_bilingual_services ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Bilingual Services"
+                }
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+                }
+                
+                ImageView {
+                    imageSource: data.has_special_occasion_permits ?
+                        "asset:///images/yes.png" : "asset:///images/no.png"
+                    rightPadding: 10
+                    preferredHeight: 30
+                    preferredWidth: 30
+                    verticalAlignment: VerticalAlignment.Center
+                }
+                Label {
+                    text: "Special Occasion Permits"
                 }
             }
         }
