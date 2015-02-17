@@ -3,6 +3,7 @@ import bb.cascades 1.2
 Page {
     Container {
         layout: DockLayout {}
+        background: Color.create("#BBCACB")
         
         Container {
             id: activityContainer
@@ -86,7 +87,7 @@ Page {
     attachedObjects: [
         ComponentDefinition {
             id: detailsPage
-            content: DetailsPage {}
+            content: StoreDetails {}
         }
     ]
 }

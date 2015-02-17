@@ -2,87 +2,101 @@ import bb.cascades 1.2
 
 NavigationPane {
     id: navPane
-    
+
     Page {
         Container {
             layout: DockLayout {}
-            Container {
-                id: activityContainer
-                objectName: "activityContainer"
-                visible: false
-            
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
-                }
-            
-                ActivityIndicator {
-                    visible: true
-                    running: true
-                    preferredHeight: 100
-                }
-                Label {
-                    id: statusLabel
-                    objectName: "statusLabel"
-                    text: "Getting location..."
-                    verticalAlignment: VerticalAlignment.Center
-                }
-            }
+            background: Color.create("#BBCACB")
             
             Container {
-                id: pageContent
-                objectName: "pageContent"
-                
-                horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Fill
                 layout: StackLayout {
                     orientation: LayoutOrientation.TopToBottom
                 }
-                
-                Button {
-                    text: "Find nearby stores"
-                    horizontalAlignment: HorizontalAlignment.Center
-                    
-                    onClicked: {
-                        navPane.push(searchResultsPage);
-                        app.nearbyStores();
-                    }
-                }
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Center
+                topPadding: 50
+                rightPadding: 50
+                bottomPadding: 50
+                leftPadding: 50
                 
                 Label {
-                    text: "Search By Keyword"
-                    horizontalAlignment: HorizontalAlignment.Left
-                }
-                TextField {
-                    id: searchField
-                    hintText: "e.g. City, Street Name, Store Postal Code"
-                    horizontalAlignment: HorizontalAlignment.Fill
-                }
-                Button {
-                    text: "Search"
-                    horizontalAlignment: HorizontalAlignment.Center
-                    
-                    onClicked: {
-                        navPane.push(searchResultsPage);
-                        var query = {};
-                        query.q = searchField.text;
-                        app.query(query);
+                    text: "What would you like to do?"
+                    textStyle {
+                        base: SystemDefaults.TextStyles.TitleText
+                        color: Color.Black
                     }
+                    bottomMargin: 50
+                    horizontalAlignment: HorizontalAlignment.Center
+                }
+                
+                Container {
+                    topPadding: 50
+                    rightPadding: 50
+                    bottomPadding: 50
+                    leftPadding: 50
+                    bottomMargin: 50
+                    background: Color.create("#2C3C2D")
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    
+                    Label {
+                        text: "Find a Store"
+                        textStyle {
+                            base: SystemDefaults.TextStyles.BigText
+                            color: Color.White
+                        }
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                    }
+                    
+                    gestureHandlers: [
+                        TapHandler {
+                            onTapped: {
+                                var page = storeSearch.createObject();
+                                navPane.push(page);
+                            }
+                        }
+                    ]
+                }
+                
+                Container {
+                    topPadding: 50
+                    rightPadding: 50
+                    bottomPadding: 50
+                    leftPadding: 50
+                    background: Color.create("#4C3838")
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    
+                    Label {
+                        text: "Find a Product"
+                        textStyle {
+                            base: SystemDefaults.TextStyles.BigText
+                            color: Color.White
+                        }
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                    }
+                    
+                    gestureHandlers: [
+                        TapHandler {
+                            onTapped: {
+                                var page = productSearch.createObject();
+                                navPane.push(page);
+                            }
+                        }
+                    ]
                 }
             }
+            
+            attachedObjects: [
+                ComponentDefinition {
+                    id: storeSearch
+                    content: StoreSearch {}
+                },
+                ComponentDefinition {
+                    id: productSearch
+                    content: ProductSearch {}
+                }
+            ]
         }
     }
-    
-    attachedObjects: [
-        FavouriteStores {
-            id: favouriteStoresPage
-        },
-        FavouriteProducts {
-            id: favouriteProductsPage
-        },
-        SearchResults {
-            id: searchResultsPage
-        }
-    ]
 }

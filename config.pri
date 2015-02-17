@@ -36,13 +36,15 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
-        $$quote($$BASEDIR/assets/DetailsPage.qml) \
-        $$quote($$BASEDIR/assets/FavouriteProducts.qml) \
-        $$quote($$BASEDIR/assets/FavouriteStores.qml) \
         $$quote($$BASEDIR/assets/LCBOInfo.qml) \
-        $$quote($$BASEDIR/assets/ProductInfo.qml) \
-        $$quote($$BASEDIR/assets/SearchResults.qml) \
-        $$quote($$BASEDIR/assets/StoreInfo.qml)
+        $$quote($$BASEDIR/assets/ProductDetails.qml) \
+        $$quote($$BASEDIR/assets/ProductFavourites.qml) \
+        $$quote($$BASEDIR/assets/ProductSearch.qml) \
+        $$quote($$BASEDIR/assets/ProductSearchResults.qml) \
+        $$quote($$BASEDIR/assets/StoreDetails.qml) \
+        $$quote($$BASEDIR/assets/StoreFavourites.qml) \
+        $$quote($$BASEDIR/assets/StoreSearch.qml) \
+        $$quote($$BASEDIR/assets/StoreSearchResults.qml)
 }
 
 config_pri_source_group1 {
@@ -69,7 +71,10 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/*.cxx) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
-        $$quote($$BASEDIR/../assets/*.qs)
+        $$quote($$BASEDIR/../assets/*.qs) \
+        $$quote($$BASEDIR/../assets/images/*.qml) \
+        $$quote($$BASEDIR/../assets/images/*.js) \
+        $$quote($$BASEDIR/../assets/images/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \
