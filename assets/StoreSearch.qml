@@ -1,14 +1,19 @@
 import bb.cascades 1.2
 
 Page {
+    attachedObjects: [
+        ComponentDefinition {
+            id: resultsPage
+            content: StoreSearchResults {}
+        }
+    ]
+    
     Container {
         layout: DockLayout {}
         background: Color.create("#BBCACB")
         
         Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.TopToBottom
-            }
+            layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Center
             topPadding: 50
@@ -17,38 +22,9 @@ Page {
             leftPadding: 50
             
             Container {
-                id: activityContainer
-                objectName: "activityContainer"
-                visible: false
-                
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
-                }
-                
-                ActivityIndicator {
-                    visible: true
-                    running: true
-                    preferredHeight: 100
-                }
-                Label {
-                    id: statusLabel
-                    objectName: "statusLabel"
-                    text: "Getting location..."
-                    verticalAlignment: VerticalAlignment.Center
-                }
-            }
-            
-            Container {
-                id: pageContent
-                objectName: "pageContent"
-                
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
+                layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
                 
                 Container {
                     topPadding: 50
@@ -58,15 +34,6 @@ Page {
                     bottomMargin: 50
                     background: Color.create("#2C3C2D")
                     horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Find Nearby Stores"
-                        textStyle.fontSize: FontSize.XXLarge
-                        textStyle.color: Color.White 
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
-                    }
-                    
                     gestureHandlers: [
                         TapHandler {
                             onTapped: {
@@ -76,10 +43,15 @@ Page {
                             }
                         }
                     ]
+                    
+                    Label {
+                        text: "Find Nearby Stores"
+                        textStyle.fontSize: FontSize.XLarge
+                        textStyle.color: Color.White 
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                    }
                 }
-                
-                
-                
                 Label {
                     text: "-or-"
                     textStyle.fontSize: FontSize.Medium
@@ -107,11 +79,4 @@ Page {
             }
         }
     }
-    
-    attachedObjects: [
-        ComponentDefinition {
-            id: resultsPage
-            content: StoreSearchResults {}
-        }
-    ]
 }

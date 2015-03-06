@@ -6,6 +6,7 @@
 #include <QtLocationSubset/QGeoPositionInfoSource>
 #include <bb/cascades/QListDataModel>
 #include <bb/cascades/NavigationPane>
+#include <bb/cascades/Dialog>
 #include <bb/system/SystemUiPosition>
 #include "ResultsDataModel.hpp"
 
@@ -31,10 +32,10 @@ public:
     void toast(QString message, SystemUiPosition::Type pos=SystemUiPosition::BottomCenter);
 
 private:
-    ResultsDataModel *_results;
-    bb::cascades::NavigationPane *_root;
-    QNetworkConfigurationManager *_netConfigMan;
     QNetworkAccessManager *_netAccessMan;
+    ResultsDataModel *_results;
+    NavigationPane *_root;
+    Dialog *_activityDialog;
 
 signals:
     void startActivity(QString message);

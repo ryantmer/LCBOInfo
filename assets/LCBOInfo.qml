@@ -4,14 +4,23 @@ NavigationPane {
     id: navPane
 
     Page {
+        attachedObjects: [
+            ComponentDefinition {
+                id: storeSearch
+                content: StoreSearch {}
+            },
+            ComponentDefinition {
+                id: productSearch
+                content: ProductSearch {}
+            }
+        ]
+        
         Container {
             layout: DockLayout {}
             background: Color.create("#BBCACB")
             
             Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.TopToBottom
-                }
+                layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Center
                 topPadding: 50
@@ -25,7 +34,6 @@ NavigationPane {
                     bottomMargin: 50
                     horizontalAlignment: HorizontalAlignment.Center
                 }
-                
                 Container {
                     topPadding: 50
                     rightPadding: 50
@@ -34,15 +42,6 @@ NavigationPane {
                     bottomMargin: 50
                     background: Color.create("#2C3C2D")
                     horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Find a Store"
-                        textStyle.fontSize: FontSize.XXLarge
-                        textStyle.color: Color.White
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
-                    }
-                    
                     gestureHandlers: [
                         TapHandler {
                             onTapped: {
@@ -51,8 +50,15 @@ NavigationPane {
                             }
                         }
                     ]
+                    
+                    Label {
+                        text: "Find a Store"
+                        textStyle.fontSize: FontSize.XLarge
+                        textStyle.color: Color.White
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                    }
                 }
-                
                 Container {
                     topPadding: 50
                     rightPadding: 50
@@ -60,15 +66,6 @@ NavigationPane {
                     leftPadding: 50
                     background: Color.create("#4C3838")
                     horizontalAlignment: HorizontalAlignment.Fill
-                    
-                    Label {
-                        text: "Find a Product"
-                        textStyle.fontSize: FontSize.XXLarge
-                        textStyle.color: Color.White
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
-                    }
-                    
                     gestureHandlers: [
                         TapHandler {
                             onTapped: {
@@ -77,19 +74,16 @@ NavigationPane {
                             }
                         }
                     ]
+                    
+                    Label {
+                        text: "Find a Product"
+                        textStyle.fontSize: FontSize.XLarge
+                        textStyle.color: Color.White
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                    }
                 }
             }
-            
-            attachedObjects: [
-                ComponentDefinition {
-                    id: storeSearch
-                    content: StoreSearch {}
-                },
-                ComponentDefinition {
-                    id: productSearch
-                    content: ProductSearch {}
-                }
-            ]
         }
     }
 }

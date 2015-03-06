@@ -9,6 +9,7 @@
 #include <bb/data/JsonDataAccess>
 #include <bb/system/SystemToast>
 #include <bb/system/SystemUiPosition>
+#include <bb/system/phone/Phone>
 #include <bb/PackageInfo>
 
 using namespace bb::cascades;
@@ -17,22 +18,14 @@ using namespace bb::system;
 
 QString favouritesPath = QDir::currentPath() + "/data/favourites.json";
 QString baseUrl = QString("https://lcboapi.com/");
-QString credentials = QString("");
+QString credentials = QString("Token MDo4Nzk2N2M4Mi1iMzAzLTExZTQtYWMzMi02YjZjN2E2OWU5NTY6cnphd2NKQktCdDVEWDVET2VVMFB6UkJyS2l2UjhXYXp0emN0");
 
-LCBOInfo::LCBOInfo() : QObject() {
-    _netConfigMan = new QNetworkConfigurationManager(this);
-    _netAccessMan = new QNetworkAccessManager(this);
-    _results = new ResultsDataModel();
-
-    QmlDocument *qml = QmlDocument::create("asset:///LCBOInfo.qml").parent(this);
-    qml->setContextProperty("app", this);
-    _root = qml->createRootObject<NavigationPane>();
-    Application::instance()->setScene(_root);
-
-    QDeclarativeEngine *engine = QmlDocument::defaultDeclarativeEngine();
-    QDeclarativeContext *rootContext = engine->rootContext();
-    rootContext->setContextProperty("app", this);
-    rootContext->setContextProperty("resultsModel", _results);
+LCBOInfo::LCBOInfo()
+:   QObject(),
+    _netAccessMan(new QNetworkAccessManager(this)),
+    _results(new ResultsDataModel())
+{
+    qmlRegisterType<phone::Phone>("bb.system.phone", 1, 0, "Phone");
 
     bool ok;
     ok = connect(_netAccessMan, SIGNAL(finished(QNetworkReply*)),
@@ -45,9 +38,24 @@ LCBOInfo::LCBOInfo() : QObject() {
             this, SLOT(onEndActivity()));
     Q_ASSERT(ok);
     Q_UNUSED(ok);
+
+    QmlDocument *qml = QmlDocument::create("asset:///LCBOInfo.qml").parent(this);
+    qml->setContextProperty("app", this);
+    _root = qml->createRootObject<NavigationPane>();
+    Application::instance()->setScene(_root);
+
+    qml = QmlDocument::create("asset:///ActivityDialog.qml").parent(this);
+    _activityDialog = qml->createRootObject<Dialog>();
+
+    QDeclarativeEngine *engine = QmlDocument::defaultDeclarativeEngine();
+    QDeclarativeContext *rootContext = engine->rootContext();
+    rootContext->setContextProperty("app", this);
+    rootContext->setContextProperty("resultsModel", _results);
 }
 
-LCBOInfo::~LCBOInfo() {}
+LCBOInfo::~LCBOInfo() {
+    delete _results;
+}
 
 QString LCBOInfo::getVersionNumber() {
     bb::PackageInfo pi;
@@ -62,47 +70,13 @@ void LCBOInfo::toast(QString message, SystemUiPosition::Type pos) {
 }
 
 void LCBOInfo::onStartActivity(QString message) {
-    //Show activity container, if it exists
-    Page *page = _root->top();
-    Container *activity = page->findChild<Container*>("activityContainer");
-    if (activity) {
-        activity->setVisible(true);
-    } else {
-        qDebug() << Q_FUNC_INFO << "No activity container on top page";
-    }
-    Label *status = activity->findChild<Label*>("statusLabel");
-    if (status) {
-        status->setText(message);
-    } else {
-        qDebug() << Q_FUNC_INFO << "No status label on top page";
-    }
-
-    //Lower opacity of other content, if it exists
-    Container *content = page->findChild<Container*>("pageContent");
-    if (content) {
-        content->setOpacity(0.1);
-    } else {
-        qDebug() << Q_FUNC_INFO << "No page content container on top page";
-    }
+    Label *activityText = _activityDialog->findChild<Label*>("activityText");
+    activityText->setText(message);
+    _activityDialog->open();
 }
 
 void LCBOInfo::onEndActivity() {
-    //Hide activity container, if it exists
-    Page *page = _root->top();
-    Container *activity = page->findChild<Container*>("activityContainer");
-    if (activity) {
-        activity->setVisible(false);
-    } else {
-        qDebug() << Q_FUNC_INFO << "No activity container on top page";
-    }
-
-    //Set opacity of other content to 1, if it exists
-    Container *content = page->findChild<Container*>("pageContent");
-    if (content) {
-        content->setOpacity(1.0);
-    } else {
-        qDebug() << Q_FUNC_INFO << "No page content container on top page";
-    }
+    _activityDialog->close();
 }
 
 /*
