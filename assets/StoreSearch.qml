@@ -12,68 +12,82 @@ Page {
         layout: DockLayout {}
         background: Color.create("#BBCACB")
         
-        Container {
+        Container { //Vertically-centred set of controls
             layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Center
             topPadding: 50
-            rightPadding: 50
-            bottomPadding: 50
-            leftPadding: 50
+            rightPadding: topPadding
+            bottomPadding: topPadding
+            leftPadding: topPadding
             
-            Container {
+            Container { //Find Nearby Stores button
+                topPadding: 50
+                rightPadding: topPadding
+                bottomPadding: topPadding
+                leftPadding: topPadding
+                background: Color.create("#2C3C2D")
                 horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Fill
-                layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
-                
-                Container {
-                    topPadding: 50
-                    rightPadding: 50
-                    bottomPadding: 50
-                    leftPadding: 50
-                    bottomMargin: 50
-                    background: Color.create("#2C3C2D")
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    gestureHandlers: [
-                        TapHandler {
-                            onTapped: {
-                                var page = resultsPage.createObject();
-                                navPane.push(page);
-                                app.nearbyStores();
-                            }
+                verticalAlignment: VerticalAlignment.Center
+                gestureHandlers: [
+                    TapHandler {
+                        onTapped: {
+                            var page = resultsPage.createObject();
+                            navPane.push(page);
+                            app.nearbyStores();
                         }
-                    ]
-                    
-                    Label {
-                        text: "Find Nearby Stores"
-                        textStyle.fontSize: FontSize.XLarge
-                        textStyle.color: Color.White 
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
                     }
-                }
+                ]
+                
                 Label {
-                    text: "-or-"
-                    textStyle.fontSize: FontSize.Medium
+                    text: "Find Nearby Stores"
+                    textStyle.fontSize: FontSize.XLarge
+                    textStyle.color: Color.White
+                    multiline: true
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Center
+                }
+            }
+            Label {
+                text: "-or-"
+                textStyle.fontSize: FontSize.Medium
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+                topMargin: 50
+                bottomMargin: topMargin
+                multiline: true
+            }
+            Container { //Search by Keyword box
+                layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
+                background: Color.create("#2C3C2D")
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Center
+                topPadding: 50
+                rightPadding: topPadding
+                bottomPadding: topPadding
+                leftPadding: topPadding
+                
+                Label {
+                    text: "Search by Keyword"
+                    textStyle.fontSize: FontSize.XLarge
+                    textStyle.color: Color.White
+                    multiline: true
                     bottomMargin: 50
                     horizontalAlignment: HorizontalAlignment.Center
-                    multiline: true
                 }
                 TextField {
                     id: searchField
-                    hintText: "Search by city, street, etc."
+                    hintText: "e.g. Waterloo, Yonge Street, N5A6W6"
                     horizontalAlignment: HorizontalAlignment.Fill
                     textStyle.color: Color.create("#2C3C2D")
                     focusHighlightEnabled: false
                     input.submitKey: SubmitKey.Search
-                    input {
-                        onSubmitted: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
-                            var query = {};
-                            query.q = searchField.text;
-                            app.query(query);
-                        }
+                    input.onSubmitted: {
+                        var page = resultsPage.createObject();
+                        navPane.push(page);
+                        var query = {};
+                        query.q = searchField.text;
+                        app.query("stores", query);
                     }
                 }
             }

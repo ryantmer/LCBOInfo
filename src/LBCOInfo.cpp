@@ -106,7 +106,7 @@ void LCBOInfo::onPositionUpdated(const QGeoPositionInfo &pos) {
     q.insert("lon", lon);
     q.insert("order", "distance_in_meters");
 
-    query(q);
+    query("stores", q);
 }
 /*
  * End Location
@@ -115,13 +115,13 @@ void LCBOInfo::onPositionUpdated(const QGeoPositionInfo &pos) {
 /*
  * Search Query
  */
-void LCBOInfo::query(QVariantMap query) {
+void LCBOInfo::query(QString endPoint, QVariantMap query) {
     emit startActivity(QString("Searching..."));
 
     qDebug() << Q_FUNC_INFO << "Searching for" << query;
 
     QUrl url;
-    url.setUrl(baseUrl + "stores");
+    url.setUrl(baseUrl + endPoint);
 
     QVariantMap::iterator iter;
     for (iter = query.begin(); iter != query.end(); ++iter) {

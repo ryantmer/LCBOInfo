@@ -26,7 +26,7 @@ public:
     LCBOInfo();
     virtual ~LCBOInfo();
 
-    Q_INVOKABLE void query(QVariantMap query);
+    Q_INVOKABLE void query(QString endPoint, QVariantMap query);
     Q_INVOKABLE QString getVersionNumber();
     Q_INVOKABLE void nearbyStores();
     void toast(QString message, SystemUiPosition::Type pos=SystemUiPosition::BottomCenter);

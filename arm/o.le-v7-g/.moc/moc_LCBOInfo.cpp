@@ -41,9 +41,9 @@ static const uint qt_meta_data_LCBOInfo[] = {
      151,  147,    9,    9, 0x08,
 
  // methods: signature, parameters, type, tag, flags
-     193,  187,    9,    9, 0x02,
-     220,    9,  212,    9, 0x02,
-     239,    9,    9,    9, 0x02,
+     202,  187,    9,    9, 0x02,
+     237,    9,  229,    9, 0x02,
+     256,    9,    9,    9, 0x02,
 
        0        // eod
 };
@@ -54,8 +54,8 @@ static const char qt_meta_stringdata_LCBOInfo[] = {
     "onStartActivity()\0onEndActivity()\0"
     "reply\0onFinished(QNetworkReply*)\0pos\0"
     "onPositionUpdated(QGeoPositionInfo)\0"
-    "query\0query(QVariantMap)\0QString\0"
-    "getVersionNumber()\0nearbyStores()\0"
+    "endPoint,query\0query(QString,QVariantMap)\0"
+    "QString\0getVersionNumber()\0nearbyStores()\0"
 };
 
 void LCBOInfo::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -71,7 +71,7 @@ void LCBOInfo::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 4: _t->onEndActivity(); break;
         case 5: _t->onFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
         case 6: _t->onPositionUpdated((*reinterpret_cast< const QGeoPositionInfo(*)>(_a[1]))); break;
-        case 7: _t->query((*reinterpret_cast< QVariantMap(*)>(_a[1]))); break;
+        case 7: _t->query((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QVariantMap(*)>(_a[2]))); break;
         case 8: { QString _r = _t->getVersionNumber();
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
         case 9: _t->nearbyStores(); break;
