@@ -21,31 +21,13 @@ Page {
             bottomPadding: topPadding
             leftPadding: topPadding
             
-            Container { //Find Nearby Stores button
-                topPadding: 50
-                rightPadding: topPadding
-                bottomPadding: topPadding
-                leftPadding: topPadding
-                background: Color.create("#2C3C2D")
-                horizontalAlignment: HorizontalAlignment.Fill
-                verticalAlignment: VerticalAlignment.Center
-                gestureHandlers: [
-                    TapHandler {
-                        onTapped: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
-                            app.nearbyStores();
-                        }
-                    }
-                ]
-                
-                Label {
-                    text: "Find Nearby Stores"
-                    textStyle.fontSize: FontSize.XLarge
-                    textStyle.color: Color.White
-                    multiline: true
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
+            CustomButton {
+                buttonText: "Find Nearby Stores"
+                buttonColour: Color.create("#2C3C2D")
+                onClicked: {
+                    var page = resultsPage.createObject();
+                    navPane.push(page);
+                    app.nearbyStores();
                 }
             }
             Label {

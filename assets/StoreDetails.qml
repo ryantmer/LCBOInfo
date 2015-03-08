@@ -179,6 +179,7 @@ Page {
                     }
                     Label {
                         text: "Parking"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -194,6 +195,7 @@ Page {
                     }
                     Label {
                         text: "Transit Access"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -209,6 +211,7 @@ Page {
                     }
                     Label {
                         text: "Product Consultant"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -224,6 +227,7 @@ Page {
                     }
                     Label {
                         text: "Tasting Bar"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -239,6 +243,7 @@ Page {
                     }
                     Label {
                         text: "Beer Cold Room"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -254,6 +259,7 @@ Page {
                     }
                     Label {
                         text: "Vintages Corner"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -269,6 +275,7 @@ Page {
                     }
                     Label {
                         text: "Wheelchair Accessible"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -284,6 +291,7 @@ Page {
                     }
                     Label {
                         text: "Bilingual Services"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 Container {
@@ -299,6 +307,7 @@ Page {
                     }
                     Label {
                         text: "Special Occasion Permits"
+                        verticalAlignment: VerticalAlignment.Center
                     }
                 }
                 //Location and contact
