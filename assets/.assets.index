@@ -1,6 +1,7 @@
 1
-12
+13
 ActivityDialog.qml
+CustomButton.qml
 images/no.png
 images/yes.png
 LCBOInfo.qml

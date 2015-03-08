@@ -34,53 +34,20 @@ NavigationPane {
                     bottomMargin: 50
                     horizontalAlignment: HorizontalAlignment.Center
                 }
-                Container {
-                    topPadding: 50
-                    rightPadding: 50
-                    bottomPadding: 50
-                    leftPadding: 50
-                    bottomMargin: 50
-                    background: Color.create("#2C3C2D")
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    gestureHandlers: [
-                        TapHandler {
-                            onTapped: {
-                                var page = storeSearch.createObject();
-                                navPane.push(page);
-                            }
-                        }
-                    ]
-                    
-                    Label {
-                        text: "Find a Store"
-                        textStyle.fontSize: FontSize.XLarge
-                        textStyle.color: Color.White
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
+                CustomButton {
+                    buttonText: "Find a Store"
+                    buttonColour: Color.create("#2C3C2D")
+                    onClicked: {
+                        var page = storeSearch.createObject();
+                        navPane.push(page);
                     }
                 }
-                Container {
-                    topPadding: 50
-                    rightPadding: 50
-                    bottomPadding: 50
-                    leftPadding: 50
-                    background: Color.create("#4C3838")
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    gestureHandlers: [
-                        TapHandler {
-                            onTapped: {
-                                var page = productSearch.createObject();
-                                navPane.push(page);
-                            }
-                        }
-                    ]
-                    
-                    Label {
-                        text: "Find a Product"
-                        textStyle.fontSize: FontSize.XLarge
-                        textStyle.color: Color.White
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
+                CustomButton {
+                    buttonText: "Find a Product"
+                    buttonColour: Color.create("#4C3838")
+                    onClicked: {
+                        var page = productSearch.createObject();
+                        navPane.push(page);
                     }
                 }
             }
