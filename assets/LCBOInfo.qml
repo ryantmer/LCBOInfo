@@ -17,7 +17,6 @@ NavigationPane {
         
         Container {
             layout: DockLayout {}
-            background: Color.create("#BBCACB")
             
             Container {
                 layout: StackLayout { orientation: LayoutOrientation.TopToBottom }

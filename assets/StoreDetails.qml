@@ -44,18 +44,15 @@ Page {
     }
     
     Container {
-        background: Color.create("#BBCACB");
-        
         ScrollView {
-            scrollViewProperties { scrollMode: ScrollMode.Vertical }
+            scrollViewProperties.scrollMode: ScrollMode.Vertical
             
             Container {
-                id: mainContainer
                 layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
                 topPadding: 20
-                rightPadding: 20
-                bottomPadding: 20
-                leftPadding: 20
+                rightPadding: topPadding
+                bottomPadding: topPadding
+                leftPadding: topPadding
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 

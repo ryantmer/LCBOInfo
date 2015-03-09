@@ -10,7 +10,6 @@ Page {
     
     Container {
         layout: DockLayout {}
-        background: Color.create("#BBCACB");
         
         Container {
             layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
@@ -40,6 +39,7 @@ Page {
                             rightPadding: topPadding
                             
                             WebView {
+                                id: webView
                                 url: ListItemData.image_thumb_url
                                 minWidth: 120
                                 minHeight: 160
@@ -47,16 +47,12 @@ Page {
                                 preferredWidth: 120
                                 rightMargin: 20
                             }
-                            Container {
-                                layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
-                                
-                                Label {
-                                    text: ListItemData.name + "\n" +
-                                        ListItemData.package + "\n" +
-                                        itemContainer.ListItem.view.price(ListItemData.price_in_cents)
-                                    multiline: true
-                                    verticalAlignment: VerticalAlignment.Center
-                                }
+                            Label {
+                                text: ListItemData.name + "\n" +
+                                    ListItemData.package + "\n" +
+                                    itemContainer.ListItem.view.price(ListItemData.price_in_cents)
+                                multiline: true
+                                verticalAlignment: VerticalAlignment.Center
                             }
                         }
                     }

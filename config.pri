@@ -39,6 +39,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/ActivityDialog.qml) \
         $$quote($$BASEDIR/assets/CustomButton.qml) \
         $$quote($$BASEDIR/assets/LCBOInfo.qml) \
+        $$quote($$BASEDIR/assets/ProductCategory.qml) \
         $$quote($$BASEDIR/assets/ProductDetails.qml) \
         $$quote($$BASEDIR/assets/ProductFavourites.qml) \
         $$quote($$BASEDIR/assets/ProductSearch.qml) \
@@ -47,7 +48,10 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/StoreFavourites.qml) \
         $$quote($$BASEDIR/assets/StoreSearch.qml) \
         $$quote($$BASEDIR/assets/StoreSearchResults.qml) \
+        $$quote($$BASEDIR/assets/images/kosher.png) \
         $$quote($$BASEDIR/assets/images/no.png) \
+        $$quote($$BASEDIR/assets/images/ocb.png) \
+        $$quote($$BASEDIR/assets/images/vqa.png) \
         $$quote($$BASEDIR/assets/images/yes.png)
 }
 

@@ -10,7 +10,6 @@ Page {
     
     Container {
         layout: DockLayout {}
-        background: Color.create("#BBCACB")
         
         Container { //Vertically-centred set of controls
             layout: StackLayout { orientation: LayoutOrientation.TopToBottom }

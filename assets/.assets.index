@@ -1,10 +1,14 @@
 1
-13
+17
 ActivityDialog.qml
 CustomButton.qml
+images/kosher.png
 images/no.png
+images/ocb.png
+images/vqa.png
 images/yes.png
 LCBOInfo.qml
+ProductCategory.qml
 ProductDetails.qml
 ProductFavourites.qml
 ProductSearch.qml
