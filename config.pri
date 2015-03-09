@@ -41,7 +41,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/LCBOInfo.qml) \
         $$quote($$BASEDIR/assets/ProductCategory.qml) \
         $$quote($$BASEDIR/assets/ProductDetails.qml) \
-        $$quote($$BASEDIR/assets/ProductFavourites.qml) \
         $$quote($$BASEDIR/assets/ProductSearch.qml) \
         $$quote($$BASEDIR/assets/ProductSearchResults.qml) \
         $$quote($$BASEDIR/assets/StoreDetails.qml) \
