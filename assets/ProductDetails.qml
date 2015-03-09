@@ -109,10 +109,23 @@ Page {
                             multiline: true
                             visible: data.package != undefined
                         }
+                        //Sale label
+                        Label {
+                            text: "<html><span style='text-decoration:line-through'>" +
+                                price(data.regular_price_in_cents) +
+                                "</span>  <span style='color:red'>" +
+                                price(data.price_in_cents) +
+                                "</span> - save " +
+                                price(data.limited_time_offer_savings_in_cents) +
+                                " until " + data.limited_time_offer_ends_on + "!</html>"
+                            multiline: true
+                            visible: data.has_limited_time_offer
+                        }
+                        //Non-sale label
                         Label {
                             text: price(data.price_in_cents)
                             multiline: true
-                            visible: data.price_in_cents != undefined
+                            visible: !data.has_limited_time_offer
                         }
                         ImageView {
                             topMargin: 20
@@ -158,13 +171,6 @@ Page {
                     }
                 }
                 //Information
-                Label {
-                    text: "Regular Price: " + price(data.regular_price_in_cents) + 
-                        " - save " + price(data.limited_time_offer_savings_in_cents) +
-                        " until " + data.limited_time_offer_ends_on + "!"
-                    visible: data.has_limited_time_offer && selector.selectedValue == "Information"
-                    multiline: true
-                }
                 Label {
                     text: "Bonus Reward Miles: " + data.bonus_reward_miles +
                     " (ends on " + data.bonus_reward_miles_ends_on + ")"

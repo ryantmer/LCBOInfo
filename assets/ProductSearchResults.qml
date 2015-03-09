@@ -32,26 +32,47 @@ Page {
                         type: "item"
                         Container {
                             id: itemContainer
-                            layout: StackLayout { orientation: LayoutOrientation.LeftToRight }
-                            topPadding: 20
-                            bottomPadding: topPadding
-                            leftPadding: topPadding
-                            rightPadding: topPadding
+                            layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
                             
-                            WebView {
-                                id: webView
-                                url: ListItemData.image_thumb_url
-                                minWidth: 120
-                                minHeight: 160
-                                preferredHeight: 160
-                                preferredWidth: 120
-                                rightMargin: 20
-                            }
-                            Label {
-                                text: ListItemData.name + "\n" +
+                            Container {
+                                layout: StackLayout { orientation: LayoutOrientation.LeftToRight }
+                                topPadding: 20
+                                bottomPadding: topPadding
+                                leftPadding: topPadding
+                                rightPadding: topPadding
+                                
+                                WebView {
+                                    id: webView
+                                    url: ListItemData.image_thumb_url
+                                    minWidth: 120
+                                    minHeight: 160
+                                    preferredHeight: 160
+                                    preferredWidth: 120
+                                    rightMargin: 20
+                                }
+                                Label { //Non-sale label
+                                    text: ListItemData.name + "\n" +
                                     ListItemData.package + "\n" +
                                     itemContainer.ListItem.view.price(ListItemData.price_in_cents)
-                                multiline: true
+                                    multiline: true
+                                    visible: !ListItemData.has_limited_time_offer
+                                    verticalAlignment: VerticalAlignment.Center
+                                }
+                                Label { //Sale label
+                                    text: "<html>" + ListItemData.name + "\n" +
+                                    ListItemData.package + "\n" +
+                                    "<span style='text-decoration:line-through'>" +
+                                    itemContainer.ListItem.view.price(ListItemData.regular_price_in_cents) +
+                                    "</span>  <span style='color:red'>" +
+                                    itemContainer.ListItem.view.price(ListItemData.price_in_cents) +
+                                    "</span></html>"
+                                    multiline: true
+                                    visible: ListItemData.has_limited_time_offer
+                                    verticalAlignment: VerticalAlignment.Center
+                                }
+                            }
+                            Divider {
+                                horizontalAlignment: HorizontalAlignment.Center
                                 verticalAlignment: VerticalAlignment.Center
                             }
                         }
