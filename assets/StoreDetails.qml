@@ -8,6 +8,7 @@ Page {
             title: "Set as My Store"
             imageSource: "asset:///images/favourite.png"
             ActionBar.placement: ActionBarPlacement.OnBar
+            enabled: app.myStore != data.id
             onTriggered: {
                 app.myStore = data.id;
             }

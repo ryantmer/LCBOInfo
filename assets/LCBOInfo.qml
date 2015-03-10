@@ -23,9 +23,9 @@ NavigationPane {
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Center
                 topPadding: 50
-                rightPadding: 50
-                bottomPadding: 50
-                leftPadding: 50
+                rightPadding: topPadding
+                bottomPadding: topPadding
+                leftPadding: topPadding
                 
                 Label {
                     text: "What would you like to do?"

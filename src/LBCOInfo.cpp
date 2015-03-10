@@ -75,6 +75,8 @@ QString LCBOInfo::getVersionNumber() {
 
 void LCBOInfo::setMyStoreId(int storeId) {
     _myStoreId = storeId;
+    QSettings settings("ryantmer", "LCBOInfo");
+    settings.setValue("store", _myStoreId);
     emit myStoreIdChanged(storeId);
 }
 
