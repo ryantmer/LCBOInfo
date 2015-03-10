@@ -172,7 +172,7 @@ void LCBOInfo::onEndActivity() {
 void LCBOInfo::onMyStoreIdChanged(int storeId) {
     qDebug() << Q_FUNC_INFO << "Favourite store ID changed to" << storeId;
     SystemToast *toast = new SystemToast(this);
-    toast->setBody("Store saved.");
+    toast->setBody("Store saved");
     toast->setPosition(SystemUiPosition::BottomCenter);
     toast->show();
 }

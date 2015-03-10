@@ -39,7 +39,7 @@ Page {
             }
         }
     ]
-    function setup() {
+    function updateInventory() {
         console.log("Getting inventory info for " + data.id + " at " + app.myStore);
         app.queryProductAtStore(data.id, app.myStore);
     }
@@ -204,19 +204,19 @@ Page {
                 Label { //No favourite store label
                     text: "<html><i>Set a favourite store to see if this product is " +
                     "available at an LCBO near you!</i></html>"
-                    visible: app.inventoryCount < 0
+                    visible: app.inventoryCount < 0 && selector.selectedValue == "Information"
                     multiline: true
                 }
                 Label { //No inventory label
                     text: "<html>Inventory at Store #" + app.myStore + ": " +
                     "<span style='color:red'>" + app.inventoryCount + "</span></html>"
-                    visible: app.inventoryCount == 0
+                    visible: app.inventoryCount == 0 && selector.selectedValue == "Information"
                     multiline: true
                 }
                 Label { //Has inventory label
                     text: "<html>Inventory at Store #" + app.myStore + ": " +
                     "<span style='color:green'>" + app.inventoryCount + "</span></html>"
-                    visible: app.inventoryCount > 0
+                    visible: app.inventoryCount > 0 && selector.selectedValue == "Information"
                     multiline: true
                 }
                 //Tasting & Serving

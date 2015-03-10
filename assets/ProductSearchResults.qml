@@ -82,7 +82,7 @@ Page {
                     var data = dataModel.data(indexPath);
                     var page = detailsPage.createObject();
                     page.data = data;
-                    page.setup();
+                    page.updateInventory();
                     navPane.push(page);
                 }
                 function price(price_in_cents) {
