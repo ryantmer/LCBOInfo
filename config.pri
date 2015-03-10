@@ -47,6 +47,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/StoreFavourites.qml) \
         $$quote($$BASEDIR/assets/StoreSearch.qml) \
         $$quote($$BASEDIR/assets/StoreSearchResults.qml) \
+        $$quote($$BASEDIR/assets/images/favourite.png) \
         $$quote($$BASEDIR/assets/images/kosher.png) \
         $$quote($$BASEDIR/assets/images/no.png) \
         $$quote($$BASEDIR/assets/images/ocb.png) \

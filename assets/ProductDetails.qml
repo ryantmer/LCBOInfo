@@ -39,6 +39,10 @@ Page {
             }
         }
     ]
+    function setup() {
+        console.log("Getting inventory info for " + data.id + " at " + app.myStore);
+        app.queryProductAtStore(data.id, app.myStore);
+    }
     function price(price_in_cents) {
         var price = price_in_cents / 100;
         if (price_in_cents % 100 == 0) {
@@ -112,12 +116,12 @@ Page {
                         //Sale label
                         Label {
                             text: "<html><span style='text-decoration:line-through'>" +
-                                price(data.regular_price_in_cents) +
-                                "</span>  <span style='color:red'>" +
-                                price(data.price_in_cents) +
-                                "</span> - save " +
-                                price(data.limited_time_offer_savings_in_cents) +
-                                " until " + data.limited_time_offer_ends_on + "!</html>"
+                            price(data.regular_price_in_cents) +
+                            "</span>  <span style='color:red'>" +
+                            price(data.price_in_cents) +
+                            "</span> - save " +
+                            price(data.limited_time_offer_savings_in_cents) +
+                            " until " + data.limited_time_offer_ends_on + "!</html>"
                             multiline: true
                             visible: data.has_limited_time_offer
                         }
@@ -195,6 +199,24 @@ Page {
                 Label {
                     text: "Price per Litre of Alcohol: " + price(data.price_per_liter_of_alcohol_in_cents)
                     visible: data.price_per_liter_of_alcohol_in_cents != undefined && selector.selectedValue == "Information"
+                    multiline: true
+                }
+                Label { //No favourite store label
+                    text: "<html><i>Set a favourite store to see if this product is " +
+                    "available at an LCBO near you!</i></html>"
+                    visible: app.inventoryCount < 0
+                    multiline: true
+                }
+                Label { //No inventory label
+                    text: "<html>Inventory at Store #" + app.myStore + ": " +
+                    "<span style='color:red'>" + app.inventoryCount + "</span></html>"
+                    visible: app.inventoryCount == 0
+                    multiline: true
+                }
+                Label { //Has inventory label
+                    text: "<html>Inventory at Store #" + app.myStore + ": " +
+                    "<span style='color:green'>" + app.inventoryCount + "</span></html>"
+                    visible: app.inventoryCount > 0
                     multiline: true
                 }
                 //Tasting & Serving

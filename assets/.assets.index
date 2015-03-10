@@ -2,6 +2,7 @@
 17
 ActivityDialog.qml
 CustomButton.qml
+images/favourite.png
 images/kosher.png
 images/no.png
 images/ocb.png
@@ -10,7 +11,6 @@ images/yes.png
 LCBOInfo.qml
 ProductCategory.qml
 ProductDetails.qml
-ProductFavourites.qml
 ProductSearch.qml
 ProductSearchResults.qml
 StoreDetails.qml

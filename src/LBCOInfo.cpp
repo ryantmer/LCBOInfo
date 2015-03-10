@@ -10,6 +10,7 @@
 #include <bb/system/SystemToast>
 #include <bb/system/SystemUiPosition>
 #include <bb/system/phone/Phone>
+#include <bb/system/SystemUiPosition>
 #include <bb/PackageInfo>
 
 using namespace bb::cascades;
@@ -20,12 +21,20 @@ QString favouritesPath = QDir::currentPath() + "/data/favourites.json";
 QString baseUrl = QString("https://lcboapi.com/");
 QString credentials = QString("Token MDo4Nzk2N2M4Mi1iMzAzLTExZTQtYWMzMi02YjZjN2E2OWU5NTY6cnphd2NKQktCdDVEWDVET2VVMFB6UkJyS2l2UjhXYXp0emN0");
 
+QString myStorePath = QDir::currentPath() + "/data/myStore.json";
+
 LCBOInfo::LCBOInfo()
 :   QObject(),
     _netAccessMan(new QNetworkAccessManager(this)),
-    _results(new ResultsDataModel())
+    _results(new ResultsDataModel()),
+    _inventoryCount(-1)
 {
     qmlRegisterType<phone::Phone>("bb.system.phone", 1, 0, "Phone");
+
+    //Loading the user's store
+    QSettings settings("ryantmer", "LCBOInfo");
+    _myStoreId = settings.value("store", 0).toInt(NULL);
+    qDebug() << Q_FUNC_INFO << "Favourite store ID:" << _myStoreId;
 
     bool ok;
     ok = connect(_netAccessMan, SIGNAL(finished(QNetworkReply*)),
@@ -36,6 +45,9 @@ LCBOInfo::LCBOInfo()
     Q_ASSERT(ok);
     ok = connect(this, SIGNAL(endActivity()),
             this, SLOT(onEndActivity()));
+    Q_ASSERT(ok);
+    ok = connect(this, SIGNAL(myStoreIdChanged(int)),
+            this, SLOT(onMyStoreIdChanged(int)));
     Q_ASSERT(ok);
     Q_UNUSED(ok);
 
@@ -52,7 +64,6 @@ LCBOInfo::LCBOInfo()
     rootContext->setContextProperty("app", this);
     rootContext->setContextProperty("resultsModel", _results);
 }
-
 LCBOInfo::~LCBOInfo() {
     delete _results;
 }
@@ -62,26 +73,11 @@ QString LCBOInfo::getVersionNumber() {
     return pi.version();
 }
 
-void LCBOInfo::toast(QString message, SystemUiPosition::Type pos) {
-    SystemToast *toast = new SystemToast(this);
-    toast->setBody(message);
-    toast->setPosition(pos);
-    toast->show();
+void LCBOInfo::setMyStoreId(int storeId) {
+    _myStoreId = storeId;
+    emit myStoreIdChanged(storeId);
 }
 
-void LCBOInfo::onStartActivity(QString message) {
-    Label *activityText = _activityDialog->findChild<Label*>("activityText");
-    activityText->setText(message);
-    _activityDialog->open();
-}
-
-void LCBOInfo::onEndActivity() {
-    _activityDialog->close();
-}
-
-/*
- * Location
- */
 void LCBOInfo::nearbyStores() {
     emit startActivity(QString("Getting location..."));
     QGeoPositionInfoSource *src = QGeoPositionInfoSource::createDefaultSource(this);
@@ -96,6 +92,91 @@ void LCBOInfo::nearbyStores() {
     }
 }
 
+/*
+ * Querying functions
+ */
+void LCBOInfo::queryStores(QVariantMap query) {
+    emit startActivity(QString("Searching..."));
+    QUrl url(baseUrl + "stores");
+    QVariantMap::iterator iter;
+    for (iter = query.begin(); iter != query.end(); ++iter) {
+        QString k = iter.key();
+        QString v = query.value(iter.key()).toString();
+        url.addQueryItem(k, v);
+    }
+    QNetworkRequest req(url);
+    req.setRawHeader("Authorization", credentials.toAscii());
+    qDebug() << Q_FUNC_INFO << url;
+    _netAccessMan->get(req);
+}
+
+void LCBOInfo::queryStore(int storeId) {
+    emit startActivity(QString("Searching..."));
+    QUrl url(baseUrl + "stores/" + QString::number(storeId));
+    QNetworkRequest req(url);
+    req.setRawHeader("Authorization", credentials.toAscii());
+    qDebug() << Q_FUNC_INFO << url;
+    _netAccessMan->get(req);
+}
+
+void LCBOInfo::queryProducts(QVariantMap query) {
+    emit startActivity(QString("Searching..."));
+    QUrl url(baseUrl + "products");
+    QVariantMap::iterator iter;
+    for (iter = query.begin(); iter != query.end(); ++iter) {
+        QString k = iter.key();
+        QString v = query.value(iter.key()).toString();
+        url.addQueryItem(k, v);
+    }
+    QNetworkRequest req(url);
+    req.setRawHeader("Authorization", credentials.toAscii());
+    qDebug() << Q_FUNC_INFO << url;
+    _netAccessMan->get(req);
+}
+
+void LCBOInfo::queryProduct(int productId) {
+    emit startActivity(QString("Searching..."));
+    QUrl url(baseUrl + "products/" + QString::number(productId));
+    QNetworkRequest req(url);
+    req.setRawHeader("Authorization", credentials.toAscii());
+    qDebug() << Q_FUNC_INFO << url;
+    _netAccessMan->get(req);
+}
+
+void LCBOInfo::queryProductAtStore(int productId, int storeId) {
+    if (_myStoreId == 0) {
+        qDebug() << Q_FUNC_INFO << "Store not set, can't get inventory of product ID" << productId;
+        return;
+    }
+    QUrl url(baseUrl + "stores/" + QString::number(storeId) +
+            "/products/" + QString::number(productId) + "/inventory");
+    QNetworkRequest req(url);
+    req.setRawHeader("Authorization", credentials.toAscii());
+    qDebug() << Q_FUNC_INFO << url;
+    _netAccessMan->get(req);
+}
+
+/*
+ * QML Slots
+ */
+void LCBOInfo::onStartActivity(QString message) {
+    Label *activityText = _activityDialog->findChild<Label*>("activityText");
+    activityText->setText(message);
+    _activityDialog->open();
+}
+
+void LCBOInfo::onEndActivity() {
+    _activityDialog->close();
+}
+
+void LCBOInfo::onMyStoreIdChanged(int storeId) {
+    qDebug() << Q_FUNC_INFO << "Favourite store ID changed to" << storeId;
+    SystemToast *toast = new SystemToast(this);
+    toast->setBody("Store saved.");
+    toast->setPosition(SystemUiPosition::BottomCenter);
+    toast->show();
+}
+
 void LCBOInfo::onPositionUpdated(const QGeoPositionInfo &pos) {
     double lat = pos.coordinate().latitude();
     double lon = pos.coordinate().longitude();
@@ -106,44 +187,12 @@ void LCBOInfo::onPositionUpdated(const QGeoPositionInfo &pos) {
     q.insert("lon", lon);
     q.insert("order", "distance_in_meters");
 
-    query("stores", q);
-}
-/*
- * End Location
- */
-
-/*
- * Search Query
- */
-void LCBOInfo::query(QString endPoint, QVariantMap query) {
-    emit startActivity(QString("Searching..."));
-
-    qDebug() << Q_FUNC_INFO << "Searching for" << query;
-
-    QUrl url;
-    url.setUrl(baseUrl + endPoint);
-
-    QVariantMap::iterator iter;
-    for (iter = query.begin(); iter != query.end(); ++iter) {
-        QString k = iter.key();
-        QString v = query.value(iter.key()).toString();
-        url.addQueryItem(k, v);
-    }
-
-    qDebug() << Q_FUNC_INFO << url;
-
-    QNetworkRequest req(url);
-    req.setRawHeader("Authorization", credentials.toAscii());
-    req.setAttribute(QNetworkRequest::User, QVariant(Store));
-
-    _netAccessMan->get(req);
+    queryStores(q);
 }
 
 void LCBOInfo::onFinished(QNetworkReply *reply) {
     QString response = reply->readAll();
     qDebug() << Q_FUNC_INFO << response;
-
-    _results->clear();
 
     if (reply->error() == QNetworkReply::NoError) {
         JsonDataAccess jda;
@@ -154,19 +203,25 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
             return;
         }
 
-        QVariantList results = map.value("result").toList();
-        foreach (QVariant a, results) {
-            QVariantMap result = a.toMap();
-            qDebug() << Q_FUNC_INFO << "Adding result" << result;
-            if (!result.value("is_dead").toBool()) {
-                //is_dead indicates store has closed, don't display
-                _results->addResult(result);
+        QString replyUrl = reply->url().toString(QUrl::RemoveQuery);
+
+        if (replyUrl.endsWith("/inventory")) {
+            QVariantMap results = map.value("result").toMap();
+            _inventoryCount = results.value("quantity").toInt(NULL);
+            emit inventoryCountChanged(_inventoryCount);
+        } else {
+            _results->clear();
+            QVariantList results = map.value("result").toList();
+            foreach (QVariant a, results) {
+                QVariantMap result = a.toMap();
+//                qDebug() << Q_FUNC_INFO << "Adding result" << result;
+                if (!result.value("is_dead").toBool()) {
+                    //is_dead indicates a store has closed, don't display
+                    _results->addResult(result);
+                }
             }
         }
     }
 
     emit endActivity();
 }
-/*
- * End Search Query
- */

@@ -40,7 +40,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.where = "has_limited_time_offer";
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                     ProductCategory {
@@ -50,7 +50,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.where = "has_bonus_reward_miles";
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                 }
@@ -65,7 +65,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.where = "has_value_added_promotion";
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                     ProductCategory {
@@ -75,7 +75,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.where = "is_seasonal";
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                 }
@@ -90,7 +90,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.where = "is_vqa";
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                     ProductCategory {
@@ -100,7 +100,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.where = "is_ocb";
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                 }
@@ -143,7 +143,7 @@ Page {
                             navPane.push(page);
                             var query = {};
                             query.q = searchField.text;
-                            app.query("products", query);
+                            app.queryProducts(query);
                         }
                     }
                 }

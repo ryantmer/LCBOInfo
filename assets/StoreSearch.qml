@@ -68,7 +68,7 @@ Page {
                         navPane.push(page);
                         var query = {};
                         query.q = searchField.text;
-                        app.query("stores", query);
+                        app.queryStores(query);
                     }
                 }
             }

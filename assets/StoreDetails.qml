@@ -3,6 +3,16 @@ import bb.system.phone 1.0
 
 Page {
     property variant data: {}
+    actions: [
+        ActionItem {
+            title: "Set as My Store"
+            imageSource: "asset:///images/favourite.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                app.myStore = data.id;
+            }
+        }
+    ]
     attachedObjects: [
         Phone {
             id: phone

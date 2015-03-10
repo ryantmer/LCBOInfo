@@ -7,11 +7,9 @@
 #include <bb/cascades/QListDataModel>
 #include <bb/cascades/NavigationPane>
 #include <bb/cascades/Dialog>
-#include <bb/system/SystemUiPosition>
 #include "ResultsDataModel.hpp"
 
 using namespace bb::cascades;
-using namespace bb::system;
 using namespace QtMobilitySubset;
 
 class LCBOInfo : public QObject {
@@ -26,24 +24,37 @@ public:
     LCBOInfo();
     virtual ~LCBOInfo();
 
-    Q_INVOKABLE void query(QString endPoint, QVariantMap query);
+    Q_PROPERTY(int myStore READ myStoreId WRITE setMyStoreId NOTIFY myStoreIdChanged);
+    Q_PROPERTY(int inventoryCount READ inventoryCount NOTIFY inventoryCountChanged);
+    Q_INVOKABLE void queryStores(QVariantMap query);
+    Q_INVOKABLE void queryStore(int storeId);
+    Q_INVOKABLE void queryProducts(QVariantMap query);
+    Q_INVOKABLE void queryProduct(int productId);
+    Q_INVOKABLE void queryProductAtStore(int productId, int storeId);
     Q_INVOKABLE QString getVersionNumber();
     Q_INVOKABLE void nearbyStores();
-    void toast(QString message, SystemUiPosition::Type pos=SystemUiPosition::BottomCenter);
+    int myStoreId() { return _myStoreId; };
+    void setMyStoreId(int storeId);
+    int inventoryCount() { return _inventoryCount; };
 
 private:
     QNetworkAccessManager *_netAccessMan;
     ResultsDataModel *_results;
+    int _myStoreId;
+    int _inventoryCount;
     NavigationPane *_root;
     Dialog *_activityDialog;
 
 signals:
     void startActivity(QString message);
     void endActivity();
+    void myStoreIdChanged(int storeId);
+    void inventoryCountChanged(int count);
 
 private slots:
     void onStartActivity(QString message = "Please wait...");
     void onEndActivity();
+    void onMyStoreIdChanged(int storeId);
     void onFinished(QNetworkReply *reply);
     void onPositionUpdated(const QGeoPositionInfo &pos);
 };
