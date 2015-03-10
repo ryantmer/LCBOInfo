@@ -1,6 +1,8 @@
 import bb.cascades 1.2
 
 Page {
+    id: resultsPage
+    property variant searchQuery: {}
     attachedObjects: [
         ComponentDefinition {
             id: detailsPage
@@ -23,10 +25,26 @@ Page {
             }
             ListView {
                 id: listView
+                property int page: 1
                 layout: StackListLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
                 dataModel: resultsModel
+                attachedObjects: [
+                    ListScrollStateHandler {
+                        onAtEndChanged: {
+                            if (atEnd) {
+                                var query = {};
+                                for (var i in searchQuery) {
+                                    query[i] = searchQuery[i];
+                                }
+                                listView.page += 1;
+                                query.page = listView.page;
+                                app.queryProducts(query);
+                            }
+                        }
+                    }
+                ]
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"

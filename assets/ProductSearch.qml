@@ -36,21 +36,23 @@ Page {
                     ProductCategory {
                         buttonText: "Sale Items"
                         onClicked: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.where = "has_limited_time_offer";
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                     ProductCategory {
                         buttonText: "Reward Miles"
                         onClicked: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.where = "has_bonus_reward_miles";
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                 }
@@ -61,21 +63,23 @@ Page {
                     ProductCategory {
                         buttonText: "Special Offers"
                         onClicked: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.where = "has_value_added_promotion";
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                     ProductCategory {
                         buttonText: "Seasonal Items"
                         onClicked: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.where = "is_seasonal";
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                 }
@@ -86,21 +90,23 @@ Page {
                     ProductCategory {
                         buttonText: "VQA Wines"
                         onClicked: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.where = "is_vqa";
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                     ProductCategory {
                         buttonText: "OCB Beers"
                         onClicked: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.where = "is_ocb";
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                 }
@@ -139,11 +145,12 @@ Page {
                         focusHighlightEnabled: false
                         input.submitKey: SubmitKey.Search
                         input.onSubmitted: {
-                            var page = resultsPage.createObject();
-                            navPane.push(page);
                             var query = {};
                             query.q = searchField.text;
                             app.queryProducts(query);
+                            var page = resultsPage.createObject();
+                            page.searchQuery = query;
+                            navPane.push(page);
                         }
                     }
                 }

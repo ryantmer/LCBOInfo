@@ -30,7 +30,7 @@ Dialog {
             Label {
                 id: activityText
                 objectName: "activityText"
-                text: "Searching..."
+                text: "Loading..."
                 verticalAlignment: VerticalAlignment.Center
             }
         }

@@ -46,13 +46,13 @@ private:
     Dialog *_activityDialog;
 
 signals:
-    void startActivity(QString message);
+    void startActivity(QString message="Loading...");
     void endActivity();
     void myStoreIdChanged(int storeId);
     void inventoryCountChanged(int count);
 
 private slots:
-    void onStartActivity(QString message = "Please wait...");
+    void onStartActivity(QString message="Loading...");
     void onEndActivity();
     void onMyStoreIdChanged(int storeId);
     void onFinished(QNetworkReply *reply);

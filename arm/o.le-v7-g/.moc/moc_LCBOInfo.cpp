@@ -22,51 +22,53 @@ static const uint qt_meta_data_LCBOInfo[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
-       2,   99, // properties
+      18,   14, // methods
+       2,  104, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       18,   10,    9,    9, 0x05,
-      41,    9,    9,    9, 0x05,
-      63,   55,    9,    9, 0x05,
-      91,   85,    9,    9, 0x05,
+      41,    9,    9,    9, 0x25,
+      57,    9,    9,    9, 0x05,
+      79,   71,    9,    9, 0x05,
+     107,  101,    9,    9, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-     118,   10,    9,    9, 0x08,
-     143,    9,    9,    9, 0x28,
-     161,    9,    9,    9, 0x08,
-     177,   55,    9,    9, 0x08,
-     207,  201,    9,    9, 0x08,
-     238,  234,    9,    9, 0x08,
+     134,   10,    9,    9, 0x08,
+     159,    9,    9,    9, 0x28,
+     177,    9,    9,    9, 0x08,
+     193,   71,    9,    9, 0x08,
+     223,  217,    9,    9, 0x08,
+     254,  250,    9,    9, 0x08,
 
  // methods: signature, parameters, type, tag, flags
-     280,  274,    9,    9, 0x02,
-     305,   55,    9,    9, 0x02,
-     321,  274,    9,    9, 0x02,
-     358,  348,    9,    9, 0x02,
-     394,  376,    9,    9, 0x02,
-     431,    9,  423,    9, 0x02,
-     450,    9,    9,    9, 0x02,
+     296,  290,    9,    9, 0x02,
+     321,   71,    9,    9, 0x02,
+     337,  290,    9,    9, 0x02,
+     374,  364,    9,    9, 0x02,
+     410,  392,    9,    9, 0x02,
+     447,    9,  439,    9, 0x02,
+     466,    9,    9,    9, 0x02,
 
  // properties: name, type, flags
-     469,  465, 0x02495003,
-     477,  465, 0x02495001,
+     485,  481, 0x02495003,
+     493,  481, 0x02495001,
 
  // properties: notify_signal_id
-       2,
        3,
+       4,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_LCBOInfo[] = {
     "LCBOInfo\0\0message\0startActivity(QString)\0"
-    "endActivity()\0storeId\0myStoreIdChanged(int)\0"
-    "count\0inventoryCountChanged(int)\0"
+    "startActivity()\0endActivity()\0storeId\0"
+    "myStoreIdChanged(int)\0count\0"
+    "inventoryCountChanged(int)\0"
     "onStartActivity(QString)\0onStartActivity()\0"
     "onEndActivity()\0onMyStoreIdChanged(int)\0"
     "reply\0onFinished(QNetworkReply*)\0pos\0"
@@ -86,23 +88,24 @@ void LCBOInfo::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         LCBOInfo *_t = static_cast<LCBOInfo *>(_o);
         switch (_id) {
         case 0: _t->startActivity((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 1: _t->endActivity(); break;
-        case 2: _t->myStoreIdChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->inventoryCountChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 4: _t->onStartActivity((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 5: _t->onStartActivity(); break;
-        case 6: _t->onEndActivity(); break;
-        case 7: _t->onMyStoreIdChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->onFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
-        case 9: _t->onPositionUpdated((*reinterpret_cast< const QGeoPositionInfo(*)>(_a[1]))); break;
-        case 10: _t->queryStores((*reinterpret_cast< QVariantMap(*)>(_a[1]))); break;
-        case 11: _t->queryStore((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->queryProducts((*reinterpret_cast< QVariantMap(*)>(_a[1]))); break;
-        case 13: _t->queryProduct((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: _t->queryProductAtStore((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 15: { QString _r = _t->getVersionNumber();
+        case 1: _t->startActivity(); break;
+        case 2: _t->endActivity(); break;
+        case 3: _t->myStoreIdChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->inventoryCountChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->onStartActivity((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->onStartActivity(); break;
+        case 7: _t->onEndActivity(); break;
+        case 8: _t->onMyStoreIdChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->onFinished((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
+        case 10: _t->onPositionUpdated((*reinterpret_cast< const QGeoPositionInfo(*)>(_a[1]))); break;
+        case 11: _t->queryStores((*reinterpret_cast< QVariantMap(*)>(_a[1]))); break;
+        case 12: _t->queryStore((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->queryProducts((*reinterpret_cast< QVariantMap(*)>(_a[1]))); break;
+        case 14: _t->queryProduct((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->queryProductAtStore((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 16: { QString _r = _t->getVersionNumber();
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
-        case 16: _t->nearbyStores(); break;
+        case 17: _t->nearbyStores(); break;
         default: ;
         }
     }
@@ -140,9 +143,9 @@ int LCBOInfo::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 18;
     }
 #ifndef QT_NO_PROPERTIES
       else if (_c == QMetaObject::ReadProperty) {
@@ -182,23 +185,23 @@ void LCBOInfo::startActivity(QString _t1)
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
-// SIGNAL 1
+// SIGNAL 2
 void LCBOInfo::endActivity()
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, 0);
-}
-
-// SIGNAL 2
-void LCBOInfo::myStoreIdChanged(int _t1)
-{
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate(this, &staticMetaObject, 2, 0);
 }
 
 // SIGNAL 3
-void LCBOInfo::inventoryCountChanged(int _t1)
+void LCBOInfo::myStoreIdChanged(int _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void LCBOInfo::inventoryCountChanged(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_END_MOC_NAMESPACE

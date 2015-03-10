@@ -96,7 +96,7 @@ void LCBOInfo::nearbyStores() {
  * Querying functions
  */
 void LCBOInfo::queryStores(QVariantMap query) {
-    emit startActivity(QString("Searching..."));
+    emit startActivity();
     QUrl url(baseUrl + "stores");
     QVariantMap::iterator iter;
     for (iter = query.begin(); iter != query.end(); ++iter) {
@@ -111,7 +111,7 @@ void LCBOInfo::queryStores(QVariantMap query) {
 }
 
 void LCBOInfo::queryStore(int storeId) {
-    emit startActivity(QString("Searching..."));
+    emit startActivity();
     QUrl url(baseUrl + "stores/" + QString::number(storeId));
     QNetworkRequest req(url);
     req.setRawHeader("Authorization", credentials.toAscii());
@@ -120,7 +120,7 @@ void LCBOInfo::queryStore(int storeId) {
 }
 
 void LCBOInfo::queryProducts(QVariantMap query) {
-    emit startActivity(QString("Searching..."));
+    emit startActivity();
     QUrl url(baseUrl + "products");
     QVariantMap::iterator iter;
     for (iter = query.begin(); iter != query.end(); ++iter) {
@@ -135,7 +135,7 @@ void LCBOInfo::queryProducts(QVariantMap query) {
 }
 
 void LCBOInfo::queryProduct(int productId) {
-    emit startActivity(QString("Searching..."));
+    emit startActivity();
     QUrl url(baseUrl + "products/" + QString::number(productId));
     QNetworkRequest req(url);
     req.setRawHeader("Authorization", credentials.toAscii());
@@ -203,14 +203,15 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
             return;
         }
 
-        QString replyUrl = reply->url().toString(QUrl::RemoveQuery);
-
-        if (replyUrl.endsWith("/inventory")) {
+        if (reply->url().toString(QUrl::RemoveQuery).contains("/inventory")) {
             QVariantMap results = map.value("result").toMap();
             _inventoryCount = results.value("quantity").toInt(NULL);
             emit inventoryCountChanged(_inventoryCount);
         } else {
-            _results->clear();
+            if (!reply->url().toString().contains("page")) {
+                //If we're searching for an additional page, don't clear the model first
+                _results->clear();
+            }
             QVariantList results = map.value("result").toList();
             foreach (QVariant a, results) {
                 QVariantMap result = a.toMap();
