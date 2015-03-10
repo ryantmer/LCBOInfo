@@ -176,8 +176,8 @@ Page {
                 }
                 //Information
                 Label {
-                    text: "Bonus Reward Miles: " + data.bonus_reward_miles +
-                    " (ends on " + data.bonus_reward_miles_ends_on + ")"
+                    text: "Purchase today and receive " + data.bonus_reward_miles +
+                    "bonus Air Miles Reward Miles! (ends on " + data.bonus_reward_miles_ends_on + ")"
                     visible: data.has_bonus_reward_miles && selector.selectedValue == "Information"
                     multiline: true
                 }
