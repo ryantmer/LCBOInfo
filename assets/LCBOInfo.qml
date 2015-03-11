@@ -2,19 +2,33 @@ import bb.cascades 1.2
 
 NavigationPane {
     id: navPane
-
-    Page {
-        attachedObjects: [
-            ComponentDefinition {
-                id: storeSearch
-                content: StoreSearch {}
-            },
-            ComponentDefinition {
-                id: productSearch
-                content: ProductSearch {}
+    Menu.definition: MenuDefinition {
+        actions: [
+            ActionItem {
+                title: "About"
+                imageSource: "asset:///images/about.png"
+                onTriggered: {
+                    navPane.push(aboutDef.createObject().open());
+                }
             }
         ]
-        
+    }
+    attachedObjects: [
+        ComponentDefinition {
+            id: storeSearch
+            content: StoreSearch {}
+        },
+        ComponentDefinition {
+            id: productSearch
+            content: ProductSearch {}
+        },
+        ComponentDefinition {
+            id: aboutDef
+            content: About {}
+        }
+    ]
+
+    Page {
         Container {
             layout: DockLayout {}
             

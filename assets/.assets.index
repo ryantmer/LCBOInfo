@@ -1,7 +1,9 @@
 1
-17
+19
+About.qml
 ActivityDialog.qml
 CustomButton.qml
+images/about.png
 images/favourite.png
 images/kosher.png
 images/no.png

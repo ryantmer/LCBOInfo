@@ -36,6 +36,7 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
+        $$quote($$BASEDIR/assets/About.qml) \
         $$quote($$BASEDIR/assets/ActivityDialog.qml) \
         $$quote($$BASEDIR/assets/CustomButton.qml) \
         $$quote($$BASEDIR/assets/LCBOInfo.qml) \
@@ -47,6 +48,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/StoreFavourites.qml) \
         $$quote($$BASEDIR/assets/StoreSearch.qml) \
         $$quote($$BASEDIR/assets/StoreSearchResults.qml) \
+        $$quote($$BASEDIR/assets/images/about.png) \
         $$quote($$BASEDIR/assets/images/favourite.png) \
         $$quote($$BASEDIR/assets/images/kosher.png) \
         $$quote($$BASEDIR/assets/images/no.png) \
