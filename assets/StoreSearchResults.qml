@@ -26,7 +26,7 @@ Page {
                 layout: StackListLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                dataModel: resultsModel
+                dataModel: storesModel
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"

@@ -3,7 +3,6 @@
 using namespace bb::cascades;
 
 ResultsDataModel::ResultsDataModel(QObject *parent) : DataModel(parent) {
-
 }
 
 void ResultsDataModel::clear() {

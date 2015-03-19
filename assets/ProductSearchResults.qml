@@ -29,7 +29,7 @@ Page {
                 layout: StackListLayout {}
                 horizontalAlignment: HorizontalAlignment.Fill
                 verticalAlignment: VerticalAlignment.Fill
-                dataModel: resultsModel
+                dataModel: productsModel
                 attachedObjects: [
                     ListScrollStateHandler {
                         onAtEndChanged: {

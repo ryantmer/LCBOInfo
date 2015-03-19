@@ -26,7 +26,8 @@ QString myStorePath = QDir::currentPath() + "/data/myStore.json";
 LCBOInfo::LCBOInfo()
 :   QObject(),
     _netAccessMan(new QNetworkAccessManager(this)),
-    _results(new ResultsDataModel()),
+    _storeResults(new ResultsDataModel()),
+    _productResults(new ResultsDataModel()),
     _inventoryCount(-1)
 {
     qmlRegisterType<phone::Phone>("bb.system.phone", 1, 0, "Phone");
@@ -62,10 +63,12 @@ LCBOInfo::LCBOInfo()
     QDeclarativeEngine *engine = QmlDocument::defaultDeclarativeEngine();
     QDeclarativeContext *rootContext = engine->rootContext();
     rootContext->setContextProperty("app", this);
-    rootContext->setContextProperty("resultsModel", _results);
+    rootContext->setContextProperty("productsModel", _productResults);
+    rootContext->setContextProperty("storesModel", _storeResults);
 }
 LCBOInfo::~LCBOInfo() {
-    delete _results;
+    delete _productResults;
+    delete _storeResults;
 }
 
 QString LCBOInfo::getVersionNumber() {
@@ -205,22 +208,33 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
             return;
         }
 
-        if (reply->url().toString(QUrl::RemoveQuery).contains("/inventory")) {
+        QString replyUrl = reply->url().toString(QUrl::RemoveQuery);
+        if (replyUrl.contains("/inventory")) {
             QVariantMap results = map.value("result").toMap();
             _inventoryCount = results.value("quantity").toInt(NULL);
             emit inventoryCountChanged(_inventoryCount);
-        } else {
+        } else if (replyUrl.contains("/stores")) {
             if (!reply->url().toString().contains("page")) {
                 //If we're searching for an additional page, don't clear the model first
-                _results->clear();
+                _storeResults->clear();
             }
             QVariantList results = map.value("result").toList();
             foreach (QVariant a, results) {
                 QVariantMap result = a.toMap();
-//                qDebug() << Q_FUNC_INFO << "Adding result" << result;
                 if (!result.value("is_dead").toBool()) {
                     //is_dead indicates a store has closed, don't display
-                    _results->addResult(result);
+                    _storeResults->addResult(result);
+                }
+            }
+        } else if (replyUrl.contains("/products")) {
+            if (!reply->url().toString().contains("page")) {
+                _productResults->clear();
+            }
+            QVariantList results = map.value("result").toList();
+            foreach (QVariant a, results) {
+                QVariantMap result = a.toMap();
+                if (!result.value("is_dead").toBool()) {
+                    _productResults->addResult(result);
                 }
             }
         }
