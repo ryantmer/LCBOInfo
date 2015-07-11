@@ -39,8 +39,8 @@ public:
 
 private:
     QNetworkAccessManager *_netAccessMan;
-    ResultsDataModel *_storeResults;
-    ResultsDataModel *_productResults;
+    ResultsModel *_storeResults;
+    ResultsModel *_productResults;
     int _myStoreId;
     int _inventoryCount;
     NavigationPane *_root;

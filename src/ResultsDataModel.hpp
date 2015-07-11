@@ -1,27 +1,20 @@
 #ifndef RESULTSDATAMODEL_HPP_
 #define RESULTSDATAMODEL_HPP_
 
-#include <bb/cascades/DataModel>
+#include <bb/cascades/QListDataModel>
 
-class ResultsDataModel : public bb::cascades::DataModel {
+typedef bb::cascades::QListDataModel<QVariant> ResultsListModel;
+
+class ResultsModel : public ResultsListModel {
     Q_OBJECT
     Q_PROPERTY(bool empty READ isEmpty NOTIFY emptyChanged);
 
 public:
-    ResultsDataModel(QObject *parent = 0);
-
-    void clear();
-    void addResult(QVariantMap result);
-    QVariantList getInternalDB();
+    ResultsModel(QObject *parent = 0);
+    QString itemType(const QVariantList &indexPath);
     bool isEmpty();
-
-    virtual int childCount(const QVariantList &indexPath);
-    virtual bool hasChildren(const QVariantList &indexPath);
-    virtual QVariant data(const QVariantList &indexPath);
-    virtual QString itemType(const QVariantList &indexPath);
-
-private:
-    QVariantList _internalDB;
+    void append(QVariant data);
+    void clear();
 
 signals:
     void emptyChanged(bool empty);

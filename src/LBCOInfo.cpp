@@ -26,8 +26,8 @@ QString myStorePath = QDir::currentPath() + "/data/myStore.json";
 LCBOInfo::LCBOInfo()
 :   QObject(),
     _netAccessMan(new QNetworkAccessManager(this)),
-    _storeResults(new ResultsDataModel()),
-    _productResults(new ResultsDataModel()),
+    _storeResults(new ResultsModel()),
+    _productResults(new ResultsModel()),
     _inventoryCount(-1)
 {
     qmlRegisterType<phone::Phone>("bb.system.phone", 1, 0, "Phone");
@@ -223,7 +223,7 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
                 QVariantMap result = a.toMap();
                 if (!result.value("is_dead").toBool()) {
                     //is_dead indicates a store has closed, don't display
-                    _storeResults->addResult(result);
+                    _storeResults->append(result);
                 }
             }
         } else if (replyUrl.contains("/products")) {
@@ -234,7 +234,7 @@ void LCBOInfo::onFinished(QNetworkReply *reply) {
             foreach (QVariant a, results) {
                 QVariantMap result = a.toMap();
                 if (!result.value("is_dead").toBool()) {
-                    _productResults->addResult(result);
+                    _productResults->append(result);
                 }
             }
         }
